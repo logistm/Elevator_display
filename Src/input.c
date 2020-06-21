@@ -1,6 +1,6 @@
 #include "input.h"
 
-uint8_t ReadBinaryInputs() {
+uint8_t ReadBinaryInputs(void) {
 	uint8_t in[5];
 	uint8_t result = 0;
 
@@ -8,7 +8,7 @@ uint8_t ReadBinaryInputs() {
 	in[1] = HAL_GPIO_ReadPin(IN2_GPIO_Port, IN2_Pin);
 	in[2] = HAL_GPIO_ReadPin(IN3_GPIO_Port, IN3_Pin);
 	in[3] = HAL_GPIO_ReadPin(IN4_GPIO_Port, IN4_Pin);
-#ifdef MATRIX_BIG
+#if defined(MATRIX_BIG) || defined (MATRIX_BIG_V1)
 	in[4] = HAL_GPIO_ReadPin(IN5_GPIO_Port, IN5_Pin);
 #endif
 #ifdef MATRIX_SMALL
@@ -21,11 +21,11 @@ uint8_t ReadBinaryInputs() {
 	return result;
 }
 
-uint8_t ReadArrowInputs() {
+uint8_t ReadArrowInputs(void) {
 	uint8_t in[2];
 	uint8_t result = 0;
 
-#ifdef MATRIX_BIG
+#if defined(MATRIX_BIG) || defined (MATRIX_BIG_V1)
 	in[0] = HAL_GPIO_ReadPin(IN6_GPIO_Port, IN6_Pin);
 	in[1] = HAL_GPIO_ReadPin(IN7_GPIO_Port, IN7_Pin);
 #endif
@@ -80,6 +80,7 @@ void WriteBinaryData(uint8_t result, uint8_t arrow, uint8_t counter) {
 	}
 
 	switch (result) {
+#if defined(PO_PR)
 	case LEVEL1:
 		LCDWriteCharacter(characterP, characterO, buffer);
 		break;
@@ -175,6 +176,103 @@ void WriteBinaryData(uint8_t result, uint8_t arrow, uint8_t counter) {
 		break;
 	default:
 		LCDWriteCharacter(0, 0, 0);
+#elif defined(PR_1)
+	case LEVEL1:
+		LCDWriteCharacter(characterP, characterR, buffer);
+		break;
+	case LEVEL2:
+		LCDWriteCharacter(blank, one, buffer);
+		break;
+	case LEVEL3:
+		LCDWriteCharacter(blank, two, buffer);
+		break;
+	case LEVEL4:
+		LCDWriteCharacter(blank, three, buffer);
+		break;
+	case LEVEL5:
+		LCDWriteCharacter(blank, four, buffer);
+		break;
+	case LEVEL6:
+		LCDWriteCharacter(blank, five, buffer);
+		break;
+	case LEVEL7:
+		LCDWriteCharacter(blank, six, buffer);
+		break;
+	case LEVEL8:
+		LCDWriteCharacter(blank, seven, buffer);
+		break;
+	case LEVEL9:
+		LCDWriteCharacter(blank, eight, buffer);
+		break;
+	case LEVEL10:
+		LCDWriteCharacter(blank, nine, buffer);
+		break;
+	case LEVEL11:
+		LCDWriteCharacter(one, zero, buffer);
+		break;
+	case LEVEL12:
+		LCDWriteCharacter(one, one, buffer);
+		break;
+	case LEVEL13:
+		LCDWriteCharacter(one, two, buffer);
+		break;
+	case LEVEL14:
+		LCDWriteCharacter(one, three, buffer);
+		break;
+	case LEVEL15:
+		LCDWriteCharacter(one, four, buffer);
+		break;
+	case LEVEL16:
+		LCDWriteCharacter(one, five, buffer);
+		break;
+	case LEVEL17:
+		LCDWriteCharacter(one, six, buffer);
+		break;
+	case LEVEL18:
+		LCDWriteCharacter(one, seven, buffer);
+		break;
+	case LEVEL19:
+		LCDWriteCharacter(one, eight, buffer);
+		break;
+	case LEVEL20:
+		LCDWriteCharacter(one, nine, buffer);
+		break;
+	case LEVEL21:
+		LCDWriteCharacter(two, zero, buffer);
+		break;
+	case LEVEL22:
+		LCDWriteCharacter(two, one, buffer);
+		break;
+	case LEVEL23:
+		LCDWriteCharacter(two, two, buffer);
+		break;
+	case LEVEL24:
+		LCDWriteCharacter(two, three, buffer);
+		break;
+	case LEVEL25:
+		LCDWriteCharacter(two, four, buffer);
+		break;
+	case LEVEL26:
+		LCDWriteCharacter(two, five, buffer);
+		break;
+	case LEVEL27:
+		LCDWriteCharacter(two, six, buffer);
+		break;
+	case LEVEL28:
+		LCDWriteCharacter(two, seven, buffer);
+		break;
+	case LEVEL29:
+		LCDWriteCharacter(two, eight, buffer);
+		break;
+	case LEVEL30:
+		LCDWriteCharacter(two, nine, buffer);
+		break;
+	case LEVEL31:
+		LCDWriteCharacter(three, zero, buffer);
+		break;
+	default:
+		LCDWriteCharacter(0, 0, 0);
+#endif
 	}
 }
 
@@ -202,6 +300,7 @@ void WriteBinaryDataSmall(uint8_t result, uint8_t arrow, uint8_t counter) {
 	if ((counter >= 0) && (counter <= 60) && (arrow != ARROW_NONE))	LCDWriteCharacter_small(buffer1, buffer2);
 	else {
 		switch (result) {
+#if defined(PO_PR)
 		case LEVEL1:
 			LCDWriteCharacter_small(characterP, characterO);
 			break;
@@ -297,6 +396,103 @@ void WriteBinaryDataSmall(uint8_t result, uint8_t arrow, uint8_t counter) {
 			break;
 		default:
 			LCDWriteCharacter_small(0, 0);
+#elif defined(PR_1)
+		case LEVEL1:
+			LCDWriteCharacter_small(characterP, characterR);
+			break;
+		case LEVEL2:
+			LCDWriteCharacter_small(one_1, one_2);
+			break;
+		case LEVEL3:
+			LCDWriteCharacter_small(two_1, two_2);
+			break;
+		case LEVEL4:
+			LCDWriteCharacter_small(three_1, three_2);
+			break;
+		case LEVEL5:
+			LCDWriteCharacter_small(four_1, four_2);
+			break;
+		case LEVEL6:
+			LCDWriteCharacter_small(five_1, five_2);
+			break;
+		case LEVEL7:
+			LCDWriteCharacter_small(six_1, six_2);
+			break;
+		case LEVEL8:
+			LCDWriteCharacter_small(seven_1, seven_2);
+			break;
+		case LEVEL9:
+			LCDWriteCharacter_small(eight_1, eight_2);
+			break;
+		case LEVEL10:
+			LCDWriteCharacter_small(nine_1, nine_2);
+			break;
+		case LEVEL11:
+			LCDWriteCharacter_small(one, zero);
+			break;
+		case LEVEL12:
+			LCDWriteCharacter_small(one, one);
+			break;
+		case LEVEL13:
+			LCDWriteCharacter_small(one, two);
+			break;
+		case LEVEL14:
+			LCDWriteCharacter_small(one, three);
+			break;
+		case LEVEL15:
+			LCDWrit5eCharacter_small(one, four);
+			break;
+		case LEVEL16:
+			LCDWriteCharacter_small(one, five);
+			break;
+		case LEVEL17:
+			LCDWriteCharacter_small(one, six);
+			break;
+		case LEVEL18:
+			LCDWriteCharacter_small(one, seven);
+			break;
+		case LEVEL19:
+			LCDWriteCharacter_small(one, eight);
+			break;
+		case LEVEL20:
+			LCDWriteCharacter_small(one, nine);
+			break;
+		case LEVEL21:
+			LCDWriteCharacter_small(two, zero);
+			break;
+		case LEVEL22:
+			LCDWriteCharacter_small(two, one);
+			break;
+		case LEVEL23:
+			LCDWriteCharacter_small(two, two);
+			break;
+		case LEVEL24:
+			LCDWriteCharacter_small(two, three);
+			break;
+		case LEVEL25:
+			LCDWriteCharacter_small(two, four);
+			break;
+		case LEVEL26:
+			LCDWriteCharacter_small(two, five);
+			break;
+		case LEVEL27:
+			LCDWriteCharacter_small(two, six);
+			break;
+		case LEVEL28:
+			LCDWriteCharacter_small(two, seven);
+			break;
+		case LEVEL29:
+			LCDWriteCharacter_small(two, eight);
+			break;
+		case LEVEL30:
+			LCDWriteCharacter_small(two, nine);
+			break;
+		case LEVEL31:
+			LCDWriteCharacter_small(three, zero);
+			break;
+		default:
+			LCDWriteCharacter_small(0, 0);
+#endif
 		}
 	}
 }

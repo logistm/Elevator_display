@@ -6,11 +6,16 @@ extern "C" {
 #endif
 
 //#define MATRIX_SMALL
-#define MATRIX_BIG
+//#define MATRIX_BIG
+#define MATRIX_BIG_V1
+
+#define PR_1
+#define PO_PR
 
 #include "stm32l4xx_hal.h"
 #include "spi.h"
 #include "matrixCharacters.h"
+#include "input.h"
 
 void Error_Handler(void);
 
@@ -21,7 +26,7 @@ void Error_Handler(void);
 #define LATCH_Pin GPIO_PIN_6
 #define LATCH_GPIO_Port GPIOB
 
-#ifdef MATRIX_BIG
+#if defined(MATRIX_BIG)
 #define STUP8_Port GPIOB
 #define STUP7_Port GPIOB
 #define STUP6_Port GPIOB
@@ -42,7 +47,7 @@ void Error_Handler(void);
 
 #endif
 
-#ifdef MATRIX_SMALL
+#if defined(MATRIX_SMALL) || defined (MATRIX_BIG_V1)
 #define STUP1_Port GPIOA
 #define STUP2_Port GPIOA
 #define STUP3_Port GPIOB

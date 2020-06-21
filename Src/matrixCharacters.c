@@ -1019,7 +1019,7 @@ void LCDClear()
 #ifdef MATRIX_SMALL
 	n=2;
 #endif
-#ifdef MATRIX_BIG
+#if defined(MATRIX_BIG) || defined (MATRIX_BIG_V1)
 	n=3;
 #endif
 

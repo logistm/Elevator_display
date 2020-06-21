@@ -26,7 +26,7 @@ int main(void)
 	  if (counter >= 120) counter = 0;
 	#endif
 
-	#ifdef MATRIX_BIG
+#if defined(MATRIX_BIG) || defined (MATRIX_BIG_V1)
 	  result = ReadBinaryInputs();
 	  arrow = ReadArrowInputs();
 
@@ -117,7 +117,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 #endif
 
-#ifdef MATRIX_SMALL
+#if defined(MATRIX_SMALL) || defined (MATRIX_BIG_V1)
   HAL_GPIO_WritePin(GPIOB, STUP3|STUP4|STUP5|STUP6|STUP7|STUP8, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOA, STUP1|STUP2, GPIO_PIN_SET);
 
